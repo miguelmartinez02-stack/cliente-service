@@ -1,0 +1,96 @@
+### Regiones (8)
+GET http://localhost:8080/api/v1/cliente-service/clientes/regiones
+
+###
+
+### Todos los clientes (12)
+GET http://localhost:8080/api/v1/cliente-service/clientes
+
+###
+
+### Página 0 (4 clientes)
+GET http://localhost:8080/api/v1/cliente-service/clientes/page/0
+
+###
+
+### Página inexistente -> content vacío
+GET http://localhost:8080/api/v1/cliente-service/clientes/page/100
+
+###
+
+### Cliente por ID -> 200
+GET http://localhost:8080/api/v1/cliente-service/clientes/1
+
+###
+
+### Cliente inexistente -> 404 JSON
+GET http://localhost:8080/api/v1/cliente-service/clientes/999
+
+###
+
+### POST válido -> 201
+POST http://localhost:8080/api/v1/cliente-service/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Donald",
+  "apellido": "Knuth",
+  "email": "knuth@stanford.edu",
+  "foto": "knuth.jpg",
+  "region": { "id": 3 }
+}
+
+###
+
+### POST inválido -> 400
+POST http://localhost:8080/api/v1/cliente-service/clientes
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellido": "",
+  "email": "no-es-email",
+  "region": null
+}
+
+###
+
+### PUT válido -> 201
+PUT http://localhost:8080/api/v1/cliente-service/clientes/1
+Content-Type: application/json
+
+{
+  "nombre": "Linus",
+  "apellido": "Benedict Torvalds",
+  "email": "linus@kernel.org",
+  "foto": "linus-updated.jpg",
+  "region": { "id": 4 }
+}
+
+###
+
+### PUT inexistente -> 404
+PUT http://localhost:8080/api/v1/cliente-service/clientes/999
+Content-Type: application/json
+
+{
+  "nombre": "Fantasma",
+  "apellido": "Digital",
+  "email": "fantasma@no.com",
+  "region": { "id": 1 }
+}
+
+###
+
+### DELETE existente -> 204
+DELETE http://localhost:8080/api/v1/cliente-service/clientes/12
+
+###
+
+### DELETE inexistente -> 404
+DELETE http://localhost:8080/api/v1/cliente-service/clientes/999
+
+###
+
+### Health check
+GET http://localhost:8081/actuator/health
